@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('minesweeperApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, $http) {
     $scope.gameConfig = {
       width: 10,
       height: 10,
@@ -54,14 +54,32 @@ angular.module('minesweeperApp')
       }
     };
 
-    $scope.endGame = function(result) {
-      result = 0;
-      console.log('game over');
+    $scope.saveGame = function() {
+      if($scope.gameConfig._id) {
+        $scope.updateGame();
+      }
+      else {
+        $http.post('/api/games/',$scope.gameConfig).success(function(addedGame) {
+          $scope.gameConfig._id = addedGame._id;
+        });
+      }
     };
 
-    /*function getNumAdjacentMines(row, col) {
+    $scope.loadGame = function() {
+      $http.get('/api/games/'+$scope.gameConfig._id).success(function(returnedGame) {
+        if(returnedGame) {
+          $scope.gameConfig = returnedGame;
+          // Look through grid and show/hide the cells that are revealed
+        }
+      });
+    };
 
-    }*/
+    $scope.updateGame = function() {
+      $http.put('/api/games/'+$scope.gameConfig._id, $scope.gameConfig).success(function(updatedGame) {
+        $scope.gameConfig = updatedGame;
+      });
+    };
+
     function getRand(min, max) {
       return Math.round(Math.random() * (max - min) + min);
     }

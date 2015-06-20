@@ -31,11 +31,19 @@
       ng-class="{'disabled': gameForm.$invalid}"
       ng-click="initializeGame()">Start Game</button>
 
+    <button class="save-game" ng-disabled="!gameConfig.grid.length" 
+      ng-class="{'disabled': !gameConfig.grid.length}"
+      ng-click="saveGame()">Save Game</button>
+
+    <button class="load-game" ng-disabled="!gameConfig._id" 
+      ng-class="{'disabled': !gameConfig._id}"
+      ng-click="loadGame()">Load Game</button>
+
     <!-- Minesweeper Grid -->
     <div class="grid">
       <div class="grid-row clearfix" ng-repeat="gridRow in gameConfig.grid">
         <div class="grid-cell" ng-repeat="gridCell in gridRow" game-config="gameConfig" row="$parent.$index" col="$index" game-result="gameResult"></div>
       </div>
     </div>
-    <div class="game-result"></div>
+    <div ng-show="gameConfig.win >= 0" class="game-result"></div>
 </form>

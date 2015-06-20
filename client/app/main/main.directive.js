@@ -50,6 +50,7 @@ angular.module('minesweeperApp')
 					return;
 				}
 				var square = scope.gameConfig.grid[scope.row][scope.col];
+				element.removeClass('grid-cell-marked').find('i').remove();
 				if(square.isMine) {
 					// Game Over
 					element.addClass('grid-cell-mine').append('<i class="fa fa-bomb"></i>');
@@ -83,9 +84,11 @@ angular.module('minesweeperApp')
 	                event.preventDefault();
 	                if(element.hasClass('grid-cell-marked')) {
 	                	element.removeClass('grid-cell-marked').find('i').remove();
+	                	scope.gameConfig.grid[scope.row][scope.col].markedAsMine = false;
 	                }
 	                else {
 	                	element.addClass('grid-cell-marked').append('<i class="fa fa-bomb"></i>');
+	                	scope.gameConfig.grid[scope.row][scope.col].markedAsMine = true;
 	                }
 	            });
 	        });
