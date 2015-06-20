@@ -32,11 +32,10 @@
       ng-click="initializeGame()">Start Game</button>
 
     <!-- Minesweeper Grid -->
-    {{gameConfig.numberOfSquaresRevealed}}
     <div class="grid">
       <div class="grid-row clearfix" ng-repeat="gridRow in gameConfig.grid">
         <div class="grid-cell" ng-repeat="gridCell in gridRow" game-config="gameConfig" row="$parent.$index" col="$index" game-result="gameResult"></div>
       </div>
     </div>
-    <div ng-if="gameConfig.win >= 0" class="game-result">{{gameResult}}</div>
+    <div class="game-result"></div>
 </form>

@@ -46,7 +46,9 @@ angular.module('minesweeperApp')
 			}
 
 			element.on('click', function() {
-				if(scope.gameResult) return;
+				if(scope.gameConfig.win >= 0) {
+					return;
+				}
 				var square = scope.gameConfig.grid[scope.row][scope.col];
 				if(square.isMine) {
 					// Game Over
@@ -76,11 +78,26 @@ angular.module('minesweeperApp')
 				}
 			});
 
+			element.bind('contextmenu', function(event) {
+	            scope.$apply(function() {
+	                event.preventDefault();
+	                if(element.hasClass('grid-cell-marked')) {
+	                	element.removeClass('grid-cell-marked').find('i').remove();
+	                }
+	                else {
+	                	element.addClass('grid-cell-marked').append('<i class="fa fa-bomb"></i>');
+	                }
+	            });
+	        });
+
 			scope.endGame = function(result) {
-				scope.$apply(function(){
-					if(result) scope.gameResult = 'You Win!';
-					else scope.gameResult = 'You Lose.';
-				});
+				if(result) {
+					$('.game-result').text('You Win!');
+				}
+				else {
+					$('.game-result').text('You Lose!');
+				}
+				scope.gameConfig.win = result;
 			};
 
 		}

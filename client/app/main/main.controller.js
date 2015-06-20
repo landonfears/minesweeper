@@ -30,27 +30,26 @@ angular.module('minesweeperApp')
     $scope.initializeGame = function() {
       // Build 2D grid and store info about the game
       $scope.gameConfig.grid = [];
-      var rows = [], cols = [], mineCount = 0; 
+      $scope.gameConfig.win = -1;
+      $scope.gameConfig.numberOfSquaresRevealed = 0;  
+      var sortedGrid = [], mineCount = 0; 
       for(var i = 0; i < $scope.gameConfig.height; i++) {
         $scope.gameConfig.grid[i] = [];
-        rows.push(i);
         for(var j = 0; j < $scope.gameConfig.width; j++) {
-          if(i === 0) {
-            cols.push(j);
-          }
           $scope.gameConfig.grid[i][j] = {
             isMine: false,
             isRevealed: false,
-            minesAdjacent: 0
+            minesAdjacent: 0,
+            markedAsMine: false
           };
+          sortedGrid.push([i,j]);
         }
       }
 
       // Now we will randomly distribute mines among grid
-      rows = shuffle(rows);
-      cols = shuffle(cols);
+      sortedGrid = shuffle(sortedGrid);
       while(mineCount < $scope.gameConfig.numberOfMines) {
-        $scope.gameConfig.grid[rows[mineCount]][cols[mineCount]].isMine = true;
+        $scope.gameConfig.grid[sortedGrid[mineCount][0]][sortedGrid[mineCount][1]].isMine = true;
         mineCount++;
       }
     };
