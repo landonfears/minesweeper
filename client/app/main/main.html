@@ -1,0 +1,42 @@
+<h1>Minesweeper</h1>
+
+<form name="gameForm" novalidate>
+    <!--input class="list-item-name" 
+      type="text" required 
+      ng-model="basketItem.name" 
+      placeholder="Enter item" 
+      ng-disabled="basketItem.inBasket" /-->
+
+    <div class="form-row clearfix">
+      <label>Width <span>in squares, max = {{gameBounds.maxSize}}</span></label>
+      <input type="number" name="width" required 
+        ng-model="gameConfig.width" label="Width"
+        min="{{gameBounds.minSize('width')}}" max="{{gameBounds.maxSize}}" />
+    </div>
+
+    <div class="form-row clearfix">
+      <label>Height <span>in squares, max = {{gameBounds.maxSize}}</span></label>
+      <input type="number" required 
+        ng-model="gameConfig.height" 
+        min="{{gameBounds.minSize('height')}}" max="{{gameBounds.maxSize}}" />
+    </div>
+
+    <div class="form-row clearfix">
+      <label>Number of mines <span>must be less than total squares</span></label>
+      <input type="number" required 
+        ng-model="gameConfig.numberOfMines" 
+        min="{{gameBounds.minMines}}" max="{{gameBounds.maxMines()}}" />
+    </div>
+    <button class="load-game" ng-disabled="gameForm.$invalid" 
+      ng-class="{'disabled': gameForm.$invalid}"
+      ng-click="initializeGame()">Start Game</button>
+
+    <!-- Minesweeper Grid -->
+    {{gameConfig.numberOfSquaresRevealed}}
+    <div class="grid">
+      <div class="grid-row clearfix" ng-repeat="gridRow in gameConfig.grid">
+        <div class="grid-cell" ng-repeat="gridCell in gridRow" game-config="gameConfig" row="$parent.$index" col="$index" game-result="gameResult"></div>
+      </div>
+    </div>
+    <div ng-if="gameConfig.win >= 0" class="game-result">{{gameResult}}</div>
+</form>

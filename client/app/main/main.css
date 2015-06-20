@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.form-row {
+    display:block;
+    margin-bottom: 20px;
+}
+label {
+    font-size:24px;
+    display:block;
+    float:left;
+    width:15%;
+}
+label span {
+    font-size:14px;
+    display:block;
+}
+input {
+    padding:10px;
+    font-size:20px;
+    float:left;
+    outline: none;
+}
+button {
+    background-color: #54CC0E;
+    border:none;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -khtml-border-radius: 10px;
+    color: #FFFFFF;
+    cursor:pointer;
+    padding: 20px;
+    font-size:30px;
+    outline: none;
+}
+button.disabled {
+    background-color: #abdf8d;
+    cursor:default;
+}
+.grid {
+    margin:30px 0;
+}
+.grid-row {
+
+}
+.grid-cell {
+    float:left;
+    background-color:#db5705;
+    width:40px;
+    height:40px;
+    border:none;
+    border-bottom: 5px solid #db1f05;
+    margin:3px;
+    padding:10px;
+    box-sizing:border-box;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -khtml-border-radius: 5px;
+    cursor:pointer;
+}
+.grid-cell.grid-cell-revealed {
+    background-color: #cccccc;
+    border:none;
+    text-align:center;
+    font-weight:bold;
+    font-size:14px;
+    color:#333333;
+}
+.grid-cell.grid-cell-mine {
+    background-color:#cccccc;
+    border:none;
+}
