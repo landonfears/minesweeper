@@ -96,13 +96,15 @@ angular.module('minesweeperApp')
 			scope.endGame = function(result) {
 				if(result) {
 					$('.game-result').text('You Win!');
+					scope.gameConfig.win = result;
 				}
 				else {
 					$('.game-result').text('You Lose!');
+					scope.$apply(function(){
+						scope.gameConfig.win = result;					
+					});
 				}
-				scope.$apply(function(){
-					scope.gameConfig.win = result;					
-				});
+				
 			};
 
 		}
