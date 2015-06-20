@@ -100,7 +100,9 @@ angular.module('minesweeperApp')
 				else {
 					$('.game-result').text('You Lose!');
 				}
-				scope.gameConfig.win = result;
+				scope.$apply(function(){
+					scope.gameConfig.win = result;					
+				});
 			};
 
 		}
